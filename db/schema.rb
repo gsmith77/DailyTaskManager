@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_231254) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", null: false
+    t.datetime "created_at"
     t.datetime "updated_at", null: false
   end
 

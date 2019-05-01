@@ -3,8 +3,8 @@ class CreateLists < ActiveRecord::Migration[5.2]
     create_table :lists do |t|
       t.string :title
 
-
       t.timestamps
+      t.datetime :created_at
     end
   end
 end

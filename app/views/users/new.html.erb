@@ -1,5 +1,6 @@
-Please fix these errors to Create User:
+
 <% if @user.errors.any? %>
+Please fix these errors to Create User:
 <% @user.errors.full_messages.each do |message| %>
   <li><%= message %></li>
 <% end %>

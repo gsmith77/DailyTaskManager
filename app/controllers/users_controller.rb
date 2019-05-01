@@ -13,6 +13,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             session[:user_id] = @user.id
+            binding.pry
             redirect_to user_path(current_user)
         else
             render new_user_path
@@ -22,6 +23,6 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:name, :password, :bio)
+        params.require(:user).permit(:name, :password, :bio, lists_attributes: [:title])
     end
 end
