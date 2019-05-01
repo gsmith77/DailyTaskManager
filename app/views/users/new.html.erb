@@ -1,3 +1,8 @@
-<h3><%= flash[:alert] %></h3>
+Please fix these errors to Create User:
+<% if @user.errors.any? %>
+<% @user.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+<% end %>
+<% end %><br><br>
 
 <%= render partial: 'form', locals: {user: @user} %>

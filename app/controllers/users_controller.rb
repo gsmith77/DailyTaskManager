@@ -15,7 +15,6 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect_to user_path(current_user)
         else
-            flash[:alert] ="Please fill out all forms"
             render new_user_path
         end
     end
