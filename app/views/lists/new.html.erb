@@ -1,0 +1,9 @@
+
+<% if @list.errors.any? %>
+Please fix these errors to Create List:
+<% @list.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+<% end %>
+<% end %><br><br>
+
+<%= render partial: 'form', locals: {list: @list} %>

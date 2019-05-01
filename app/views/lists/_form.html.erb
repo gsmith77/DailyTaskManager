@@ -1,0 +1,11 @@
+<%= form_for list do |f| %>
+    <%= f.label "Title" %><br>
+    <%= f.text_area :title %><br><br>
+    <%= f.fields_for :lists, user.lists.build do |task_field| %>
+        <%= task_field.label :content, "Task Content"%><br>
+        <%= task_field.text_field :content %>
+        <%= task_field.label :status%>
+        <%= task_field.text_field :status %>
+    <% end %>
+    <%= f.submit "Create List"%>
+<% end %>
