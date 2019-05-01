@@ -1,9 +1,9 @@
 <%= form_for @user do |f| %>
-    <%= f.label "Name" %><br>
+    <%= f.label "Name" %>
     <%= f.text_field :name%><br><br>
     <%= f.label "Password"%>
-    <%= f.text_field :password %>
-    <%= f.label "Bio" %>
-    <%= f.text_area :bio %>
+    <%= f.text_field :password %><br><br>
+    <%= f.label "Bio" %><br>
+    <%= f.text_area :bio %><br><br>
     <%= f.submit "Create User"%>
 <% end %>
