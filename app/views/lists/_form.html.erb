@@ -4,8 +4,8 @@
     <%= f.fields_for :lists, user.lists.build do |task_field| %>
         <%= task_field.label :content, "Task Content"%><br>
         <%= task_field.text_field :content %>
-        <%= task_field.label :status%>
-        <%= task_field.text_field :status %>
+        <%= task_field.label "Status = Incomplete"%>
+        <%= task_field.check_box :status %>
     <% end %>
     <%= f.submit "Create List"%>
 <% end %>

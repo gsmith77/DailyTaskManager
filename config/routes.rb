@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 resources :users
 resources :users do
-  resources :lists, only: [:index, :new, :show]
+  resources :lists, only: [:index, :new, :show, :create]
 end
 
 end

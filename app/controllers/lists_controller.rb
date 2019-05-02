@@ -1,7 +1,11 @@
 class ListsController < ApplicationController
 
     def index
-        @lists = List.all
+        if params[:user_id]
+            @lists = User.find(id: params[:user_id]).lists
+        else
+            @lists = List.all
+        end
     end
 
     def new
@@ -9,16 +13,14 @@ class ListsController < ApplicationController
     end
 
     def show
+        #need to grab a single list
+        binding.pry
         @list = List.find_by(params[:id])
     end
-
+    
     def create
-        @list = List.new(list_params)
-        if @list.save
-            redirect_to list_path(@list)
-        else
-            render 'new'
-        end
+        @list = List.find_by(params[:id])
+        redirect_to user_list_path(current_user, @list.id)
     end
 
     private
