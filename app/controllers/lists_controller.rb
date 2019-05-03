@@ -1,12 +1,13 @@
 class ListsController < ApplicationController
 
-    # def index
-    #     if params[:user_id]
-    #         @lists = User.find(id: params[:user_id]).lists
-    #     else
-    #         @lists = List.all
-    #     end
-    # end
+    def index
+        #display lists by their created_at dates for the User to pick
+        if params[:user_id]
+            @lists = User.find_by(id: params[:user_id]).lists
+        else
+            @lists = List.all
+        end
+    end
 
     def new
         @list = List.new

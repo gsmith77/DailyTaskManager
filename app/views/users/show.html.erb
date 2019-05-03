@@ -1,5 +1,5 @@
 
-<h1><%= current_user.name %></h1><br>
+<h1><%= current_user.name.capitalize %></h1><br>
 <%= current_user.bio %><br><br><br>
 <% if @task.present? %>
         <% if @task.errors.any? %>
@@ -11,9 +11,6 @@
 <% end %>
         
 <% current_user.lists.each do |list| %>
-        <%= link_to "#{list.title}", user_list_path(current_user)%><br><br>
-        <%= link_to "Add Task", new_list_task_path(list) %>
+        Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_lists_path(current_user)%><br><br>
 <% end %>
 
-#have links to each current_user.lists 
-#be able to create new task from here and NAME NAME NAME NAME NAME IT!
