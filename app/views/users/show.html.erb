@@ -1,14 +1,6 @@
 
 <h1><%= current_user.name.capitalize %></h1><br>
 <%= current_user.bio %><br><br><br>
-<% if @task.present? %>
-        <% if @task.errors.any? %>
-            Please fix these errors to Create a Task:
-           <% @task.errors.full_messages.each do |message| %>
-           <li><%= message %></li>
-           <% end %>
-        <% end %>
-<% end %>
         
 <% current_user.lists.each do |list| %>
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_lists_path(current_user)%><br><br>

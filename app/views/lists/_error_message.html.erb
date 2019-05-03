@@ -1,0 +1,8 @@
+<% if @task.present? %>
+        <% if @task.errors.any? %>
+            Please fix these errors to Create a Task:
+           <% @task.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+           <% end %>
+        <% end %>
+<% end %>

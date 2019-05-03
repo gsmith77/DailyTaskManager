@@ -15,7 +15,6 @@ class TasksController < ApplicationController
         if @task.save
             redirect_to list_tasks_path(List.find_by(param[:list_id]))
         else
-            flash[:alert] = "Task was not able to be created. Please Retry."
             render user_path(User.find_by(params[:user_id]))
         end
     end

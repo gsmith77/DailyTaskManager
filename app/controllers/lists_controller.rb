@@ -14,13 +14,21 @@ class ListsController < ApplicationController
     end
 
     def show
-        #need to grab a single list
         @list = List.find_by(params[:id])
     end
     
     def create
         @list = List.find_by(params[:id])
         redirect_to user_list_path(current_user, @list)
+    end
+
+    def update
+        @list = List.find_by(params[:id])
+        if params[:list][:list][:content] 
+            redirect_to #task create path
+        else
+            redirect_to user_list_path(current_user, @list) 
+        end
     end
 
     private

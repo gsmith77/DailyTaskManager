@@ -1,8 +1,13 @@
 <%= @list.title %><br><br>
 
-#display all tasks here
+<% @list.tasks.each do |task| %>
+    <%= task.content %>
+    Your Task is:<%= render partial: 'status', locals: {task: task} %>
+<% end %><br>
 #add tasks here user _form helper view
 #be able to check_box task to "Completed"
+<%= render partial: 'error_message', locals: {task: @task} %>
+<%= render partial: 'form', locals: {list: @list} %>
 <br>
 <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %><br><br>
 <%= link_to "Back to #{current_user.name.capitalize}'s List's Page", user_lists_path(current_user) %>
