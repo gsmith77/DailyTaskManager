@@ -1,11 +1,19 @@
 
 <h1><%= current_user.name %></h1><br>
-<p> 
-    <%= current_user.bio %>
-        </p>
-                
-        <% current_user.lists.each do |list| %>
-                <%= link_to "#{list.title}", user_lists_path(current_user.id, list.id)%>
+<%= current_user.bio %><br><br><br>
+<% if @task.present? %>
+        <% if @task.errors.any? %>
+            Please fix these errors to Create a Task:
+           <% @task.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+           <% end %>
         <% end %>
+<% end %>
+        
+<% current_user.lists.each do |list| %>
+        <%= link_to "#{list.title}", user_list_path(current_user)%><br><br>
+        <%= link_to "Add Task", new_list_task_path(list) %>
+<% end %>
+
 #have links to each current_user.lists 
 #be able to create new task from here and NAME NAME NAME NAME NAME IT!

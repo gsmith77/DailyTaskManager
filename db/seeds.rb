@@ -8,4 +8,4 @@
 
 grant = User.create(name: "Grant Smith", password: "Purple Reign", bio: "I love to workout, program and make memories")
 fitness = List.create(title: "Fitness")
-workout = Task.create(content:"Work out at 7:00pm", status: "incomplete")
+workout = Task.create(content:"Work out at 7:00pm")
