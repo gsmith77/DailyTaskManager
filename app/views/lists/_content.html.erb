@@ -1,0 +1,5 @@
+<% if task.content.nil? %>
+    <%= "" %>
+<% else %>
+    <%= link_to task.content, task_path(task) %>
+<% end %>

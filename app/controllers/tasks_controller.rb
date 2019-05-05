@@ -19,15 +19,16 @@ class TasksController < ApplicationController
     end
 
     def create
-        @list = List.find_by(params[:list_id])
+        binding.pry
+        @list = List.find_by(title: params[:title])
         @tasks = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: @list.users[0].id})
         redirect_to list_tasks_path(@list)
     end
 
     def update
-        @task = Task.find_by(params[:id])
-        if @task.update(content: task_params[:content], status: task_params[:status], list_id: List.find_by(params[:id]).id, user_id: current_user.id)
-            redirect_to list_tasks_path(List.find_by(params[:id]))
+        @task = Task.find(params[:id])
+        if @task.update(content: task_params[:content], status: task_params[:status], list_id: List.find(params[:id]).id, user_id: current_user.id)
+            redirect_to list_tasks_path(List.find(params[:id]))
         else
             render task_path(@task)
         end

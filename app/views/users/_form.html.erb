@@ -8,6 +8,6 @@
     <%= f.fields_for :lists, user.lists.build do |list_field| %>
         <%= list_field.label :title, "List Title"%><br>
         <%= list_field.text_field :title %>
-    <% end %>
+    <% end %><br><br>
     <%= f.submit "Create User"%>
 <% end %>
