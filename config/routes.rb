@@ -13,6 +13,8 @@ resources :lists do
   post '/tasks/create', to: 'tasks#create', as: 'create_task'
 end
 resources :tasks
+post'signin', to: "sessions#create"
+get 'signin', to: "sessions#new"
 
 
 
