@@ -1,5 +1,7 @@
 <% if task.status == false %>
-    Incomplete
+   = Incomplete
+<% elsif task.content.nil?%>
+    <%= "" %>
 <% else %>
-    Completed
+   = Completed
 <% end %>

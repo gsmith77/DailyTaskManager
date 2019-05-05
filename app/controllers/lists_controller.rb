@@ -1,7 +1,6 @@
 class ListsController < ApplicationController
 
     def index
-        #display lists by their created_at dates for the User to pick
         if params[:user_id]
             @lists = User.find_by(id: params[:user_id]).lists
         else
@@ -14,7 +13,10 @@ class ListsController < ApplicationController
     end
 
     def show
+        binding.pry
         @list = List.find(params[:id])
+        @completed_tasks = @list.tasks.completed? 
+        @incomplete_tasks = @list.tasks.incomplete? 
     end
     
     def create
@@ -31,6 +33,17 @@ class ListsController < ApplicationController
             render user_list_path(current_user, @list) 
         end
     end
+
+    def completed
+        @list = List.find(current_user.tasks[0].list_id)
+        redirect_to user_list_path(current_user, @list.id)
+    end
+
+    def incomplete
+        @list = List.find(current_user.tasks[0].list_id)
+        redirect_to user_list_path(current_user, @list.id)
+    end
+
 
     private
 

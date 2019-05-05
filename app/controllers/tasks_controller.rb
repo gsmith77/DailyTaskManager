@@ -3,6 +3,7 @@ class TasksController < ApplicationController
     def index
         if params[:list_id]
             @list = List.find(params[:list_id])
+            @incomplete_tasks = @list.tasks.incomplete? 
             @tasks = @list.tasks
             list_tasks_path(@list)
         else

@@ -18,6 +18,9 @@ get 'signin', to: "sessions#new"
 get '/logout', to: 'sessions#destroy', as: "logout"
 
 get '/auth/facebook/callback' => 'sessions#create'
+post '/lists/completed', to: 'lists#completed', as: "tasks_completed"
+post '/lists/incomplete', to: 'lists#incomplete', as: "tasks_incomplete"
+post '/lists/all_tasks', to: 'lists#all_tasks', as: "tasks_all_tasks"
 
 
 

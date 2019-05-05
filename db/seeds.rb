@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-grant = User.create(name: "Grant Smith", password: "Purple Reign", bio: "I love to workout, program and make memories")
+grant = User.create(name: "Grant Smithyyy", password: "Purple Reign", bio: "I love to workout, program and make memories")
 fitness = List.create(title: "Fitness")
-workout = Task.create(content:"Work out at 7:00pm")
+workout1 = Task.create(content:"Work out at 6:00pm", status:false, list_id: fitness.id, user_id: 3)

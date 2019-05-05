@@ -1,13 +1,28 @@
 <h1><%= @list.title %></h1><br><br>
 Click on your Task to be able to mark it as complete.<br><br>
-<% @list.tasks.each do |task| %>
-    <%= render partial: 'content', locals: {task: task}%>
-    Your Task is:<%= render partial: 'tasks/status', locals: {task: task} %><br>
 
-<% end %><br>
+<% if @completed_tasks.present? %>
+<h3>Completed Tasks:</h3><br>
+    <% @completed_tasks.each do |task| %>
+        <%= render partial: 'content', locals: {task: task}%>
+        <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
+    <% end %>
+<% end %>
+<% if @completed_tasks.nil? %>
+<h3>Incomplete Tasks:</h3><br>
+    <% @incomplete_tasks.each do |task| %>
+        <%= render partial: 'content', locals: {task: task}%><br>
+        <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
+    <% end %>
+<% end %><br><br>
 
 <%= link_to "Create New Task", new_list_task_path(@list) %><br>
 <%= render partial: 'error_message', locals: {task: @task} %>
 <br>
 <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %><br><br>
-<%= link_to "#{current_user.name.capitalize}'s List's Page", user_lists_path(current_user) %>
+<%= link_to "#{current_user.name.capitalize}'s List's Page", user_lists_path(current_user) %><br><br>
+
+<%= link_to "All Tasks", list_tasks_path(@list) %><br><br>
+<%= link_to "Completed Tasks", tasks_completed_path %><br><br>
+<%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br>
+
