@@ -17,6 +17,8 @@ post'signin', to: "sessions#create"
 get 'signin', to: "sessions#new"
 get '/logout', to: 'sessions#destroy', as: "logout"
 
+get '/auth/facebook/callback' => 'sessions#create'
+
 
 
 end

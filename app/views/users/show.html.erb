@@ -1,5 +1,11 @@
-
-<h1><%= current_user.name.capitalize %></h1><br>
+<% if @user.uid.present? %>
+  <h1><%= @user.name %></h1>
+  <h2>Email: <%= @user.email %></h2>
+  <h2>Facebook UID: <%= @user.uid %></h2>
+  <img src="<%= @user.image %>">
+<% else %>
+        <h1><%= current_user.name.capitalize %></h1><br>
+<% end %>
 <%= current_user.bio %><br><br><br>
         
 <% current_user.lists.each do |list| %>

@@ -13,3 +13,6 @@ Please fix these errors to Create User:
 <%= render partial: 'form', locals: {user: @user} %><br>
 <h2>Sign in if you are an existing User</h2>
 <%= link_to "Sign in", signin_path %>
+
+<h2>Facebook User?</h2>
+<%= link_to('Log in with Facebook!', '/auth/facebook') %>
