@@ -2,10 +2,11 @@ class TasksController < ApplicationController
 
     def index
         if params[:list_id]
-            @tasks = current_list.tasks
-            list_tasks_path(current_list)
+            @list = List.find(params[:list_id])
+            @tasks = @list.tasks
+            list_tasks_path(@list)
         else
-        @tasks = Task.all
+            @tasks = Task.all
             tasks_path
         end
     end
@@ -19,10 +20,15 @@ class TasksController < ApplicationController
     end
 
     def create
-        binding.pry
-        @list = List.find_by(title: params[:title])
-        @tasks = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: @list.users[0].id})
-        redirect_to list_tasks_path(@list)
+        if task_params[:content].present?
+            @list = List.find_by(title: params[:title])
+            @tasks = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: @list.users[0].id})
+            redirect_to list_tasks_path(@list)
+        else
+            @list = List.find(params[:list_id])
+            flash[:alert] = "Content can not be blank."
+            redirect_to new_list_task_path(@list)
+        end
     end
 
     def update
