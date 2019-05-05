@@ -6,8 +6,11 @@ resources :users do
 end
 
 resources :lists do
-  resources :tasks, only: [:index, :new, :create, :show]
+  resources :tasks, only: [:index, :new]
+  patch "/tasks/update", to: "tasks#update", as: "update_task"
+  post '/tasks/create', to: 'tasks#create', as: 'create_task'
 end
+resources :tasks
 
 
 

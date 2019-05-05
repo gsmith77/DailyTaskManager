@@ -1,0 +1,10 @@
+<%= render partial: 'content', locals: {task: @task} %><br>
+<%= render partial: 'status', locals: {task: @task} %><br><br><br>
+
+<%= render partial: 'error_message', locals: {task: @task} %>
+
+<%= form_for @task do |f| %>
+    Change Content: <%= f.text_field :content %>
+    Completed?<%= f.check_box :status %>
+<%= f.submit "Update Task" %>
+<% end %>

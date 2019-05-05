@@ -1,9 +1,0 @@
-<%= form_for list do |f| %>
-    <%= f.fields_for :list, list.tasks.build do |task_field| %>
-        <%= task_field.label :content, "Task Content"%><br>
-        <%= task_field.text_field :content %><br><br>
-        <%= task_field.label "Task Completed?"%>
-        <%= task_field.check_box :status %><br><br>
-    <% end %>
-    <%= f.submit "Add Task(s)"%>
-<% end %>

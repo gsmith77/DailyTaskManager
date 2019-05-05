@@ -1,1 +1,6 @@
-<%= render partial: 'form', locals: {task: @task} %>
+<%= form_for @task, url: list_create_task_path(List.find_by(params[:list_id])) do |f| %>
+    <%= f.label "Content" %>
+    <%= f.text_field :content %>
+    <%= select_tag :list_id, options_from_collection_for_select(List.all, :id, :title) %>
+    <%= f.submit "Create Task" %>
+<% end %>

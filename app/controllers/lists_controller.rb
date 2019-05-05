@@ -19,22 +19,23 @@ class ListsController < ApplicationController
     
     def create
         @list = List.find_by(params[:id])
-        redirect_to user_list_path(current_user, @list)
+        redirect_to list_create_task_path(@list)
     end
 
     def update
         @list = List.find_by(params[:id])
-        if params[:list][:list][:content] 
-            redirect_to #task create path
+        binding.pry
+        if params[:list][:tasks_attributes].present?
+            redirect_to list_create_task_path(@list)
         else
-            redirect_to user_list_path(current_user, @list) 
+            render user_list_path(current_user, @list) 
         end
     end
 
     private
 
     def list_params
-        params.require(:list).permit(:title)
+        params.require(:list).permit(:title, tasks_attributes: [:content, :status])
     end
 
 end

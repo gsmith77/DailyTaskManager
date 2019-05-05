@@ -1,0 +1,9 @@
+<% @tasks.each do |task| %>
+    <br><br>
+    <%= render partial: 'content', locals: {task: task} %> =
+    <%= render partial: 'status', locals: {task: task} %>
+    <br><br>
+<% end %>
+
+<%= link_to "Back to List Show Page", user_list_path(current_user, current_list) %><br><br>
+<%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
