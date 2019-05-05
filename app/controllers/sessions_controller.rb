@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
     end
 
     def create
-        binding.pry
         @user = User.find_by(name: params[:user][:name])
         session[:user_id] = @user.id
         redirect_to user_path(@user)
@@ -16,5 +15,7 @@ class SessionsController < ApplicationController
 
     def destroy
         session.delete :name
-      end
+        flash[:alert] = "You are now Logged Out Have a Nice Day!"
+        redirect_to '/'
+    end
 end

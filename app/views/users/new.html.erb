@@ -1,5 +1,7 @@
 <h1>Welcome to Daily Task Manager</h1><br>
-<h3>Create a New User below</h3>
+
+<%= flash[:alert] %>
+<h3>Create a New User below if not already one</h3>
 
 <% if @user.errors.any? %>
 Please fix these errors to Create User:
@@ -8,4 +10,6 @@ Please fix these errors to Create User:
 <% end %>
 <% end %><br><br>
 
-<%= render partial: 'form', locals: {user: @user} %>
+<%= render partial: 'form', locals: {user: @user} %><br>
+<h2>Sign in if you are an existing User</h2>
+<%= link_to "Sign in", signin_path %>

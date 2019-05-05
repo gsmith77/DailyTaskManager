@@ -15,6 +15,7 @@ end
 resources :tasks
 post'signin', to: "sessions#create"
 get 'signin', to: "sessions#new"
+get '/logout', to: 'sessions#destroy', as: "logout"
 
 
 

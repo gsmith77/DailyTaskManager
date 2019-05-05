@@ -6,5 +6,6 @@
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
 <% end %>
 
-<%= link_to "Create New List", new_user_list_path(current_user) %>
+<%= link_to "Create New List", new_user_list_path(current_user) %><br><br><br><br>
+<%= link_to "Log Out", logout_path %>
 
