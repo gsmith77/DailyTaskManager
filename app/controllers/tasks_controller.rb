@@ -24,6 +24,7 @@ class TasksController < ApplicationController
         if task_params[:content].present?
             @list = List.find_by(title: params[:title])
             @tasks = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: @list.users[0].id})
+            @list.tasks << @tasks
             redirect_to list_tasks_path(@list)
         else
             @list = List.find(params[:list_id])
@@ -34,10 +35,22 @@ class TasksController < ApplicationController
 
     def update
         @task = Task.find(params[:id])
-        if @task.update(content: task_params[:content], status: task_params[:status], list_id: List.find(params[:id]).id, user_id: current_user.id)
-            redirect_to list_tasks_path(List.find(params[:id]))
-        else
-            render task_path(@task)
+        if task_params[:content].present?
+            if @task.update(content: task_params[:content], status: task_params[:status], user_id: current_user.id)
+                @list = List.find(@task.list_id)
+                @list.tasks << @task
+                redirect_to list_tasks_path(@list)
+            else
+                render task_path(@task)
+            end
+        else 
+            if @task.update(status: task_params[:status], user_id: current_user.id)
+                @list = List.find(@task.list_id)
+                @list.tasks << @task
+                redirect_to list_tasks_path(@list)
+            else
+                render task_path(@task)
+            end
         end
     end
 

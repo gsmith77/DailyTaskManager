@@ -13,7 +13,6 @@ class ListsController < ApplicationController
     end
 
     def show
-        binding.pry
         @list = List.find(params[:id])
         @completed_tasks = @list.tasks.completed? 
         @incomplete_tasks = @list.tasks.incomplete? 
@@ -32,16 +31,6 @@ class ListsController < ApplicationController
         else
             render user_list_path(current_user, @list) 
         end
-    end
-
-    def completed
-        @list = List.find(current_user.tasks[0].list_id)
-        redirect_to user_list_path(current_user, @list.id)
-    end
-
-    def incomplete
-        @list = List.find(current_user.tasks[0].list_id)
-        redirect_to user_list_path(current_user, @list.id)
     end
 
 
