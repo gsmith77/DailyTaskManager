@@ -20,6 +20,7 @@ class ListsController < ApplicationController
     
     def create
         @list = List.find_or_create_by(list_params)
+        #is making a default task with content:nil. Trying to stop this with validations but is not working. Get Help
         current_user.lists << @list
         redirect_to user_list_path(current_user, @list)
     end

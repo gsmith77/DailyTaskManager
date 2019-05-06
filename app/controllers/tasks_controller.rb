@@ -23,6 +23,7 @@ class TasksController < ApplicationController
     def create
         if task_params[:content].present?
             @list = List.find_by(title: params[:title])
+            @list.tasks.content_present? = true
             @tasks = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: @list.users[0].id})
             @list.tasks << @tasks
             redirect_to list_tasks_path(@list)
