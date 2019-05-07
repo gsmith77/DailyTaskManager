@@ -9,4 +9,5 @@ class List < ApplicationRecord
            self.tasks << task
         end
     end
+
 end

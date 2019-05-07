@@ -1,12 +1,7 @@
 class Task < ApplicationRecord
     belongs_to :user
     belongs_to :list
-    validates :content, presence: true, if: :content_present?
-    attr_accessor content_present
-
-    def content_present?
-        self.content_present? == 'true' || self.content_present == true
-    end
+    validates :content, presence: true, on: :new
 
     def self.completed?
         where(status:true)

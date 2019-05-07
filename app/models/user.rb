@@ -11,4 +11,8 @@ class User < ApplicationRecord
            self.lists << list
         end
     end
+
+    def empty_lists
+        self.lists = []
+    end
 end
