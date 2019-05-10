@@ -2,6 +2,7 @@ require 'pry'
 class UsersController < ApplicationController
 
     def show
+        is_logged_in?
         @user = User.find(params[:id])
     end
 

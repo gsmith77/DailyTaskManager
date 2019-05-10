@@ -13,6 +13,7 @@ class TasksController < ApplicationController
     end
 
     def show
+        is_logged_in?
         @task = Task.find(params[:id])
     end
     
@@ -21,10 +22,9 @@ class TasksController < ApplicationController
     end
 
     def create
+        is_logged_in?
         if task_params[:content].present?
             @list = List.find(params[:list_id])
-            @list.user = current_user
-            @list.save
             @task = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: current_user.id})
             redirect_to list_tasks_path(@list)
         else
@@ -35,6 +35,7 @@ class TasksController < ApplicationController
     end
 
     def update
+        is_logged_in?
         @task = Task.find(params[:id])
         if @task.update(task_params)
             @list = List.find(@task.list_id)

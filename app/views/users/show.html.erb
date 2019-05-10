@@ -11,10 +11,11 @@
 <% current_user.lists.each do |list| %>
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
 <% end %>
-
-<%= link_to "Delete All Lists", user_destroy_lists_path(current_user) %>
-
 <%= link_to "Create New List", new_user_list_path(current_user) %><br><br><br><br>
-<%= link_to "All Lists", user_lists_path(current_user) %>
+
+<% if @user.lists.present? %>
+  <%= link_to "Delete All Lists", user_destroy_lists_path(current_user) %>
+  <%= link_to "All Lists", user_lists_path(current_user) %>
+<% end %>
 <%= link_to "Log Out", logout_path %>
 

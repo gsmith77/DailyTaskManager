@@ -23,7 +23,8 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        session.delete :name
+        session.delete(:user_id)
+        current_user = nil
         flash[:alert] = "You are now Logged Out Have a Nice Day!"
         redirect_to '/'
     end

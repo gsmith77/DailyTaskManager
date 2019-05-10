@@ -4,6 +4,7 @@ root 'users#new'
 
 resources :users do
   resources :lists, only: [:index, :new, :show, :create]
+  delete 'lists/destroy', to: 'lists#destroy', as: 'destroy_lists'
 end
 resources :lists
 post 'lists/create', to: 'lists#create', as:'create_list'

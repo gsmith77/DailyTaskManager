@@ -5,9 +5,5 @@
     <%= f.text_field :password %><br><br>
     <%= f.label "Bio" %><br>
     <%= f.text_area :bio %><br><br>
-    <%= f.fields_for :lists, user.lists.build do |list_field| %>
-        <%= list_field.label :title, "List Title"%><br>
-        <%= list_field.text_field :title %>
-    <% end %><br><br>
     <%= f.submit "Create User"%>
 <% end %>

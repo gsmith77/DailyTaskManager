@@ -1,7 +1,20 @@
-<% if @lists.present? %>
-    <% @lists.each do |list| %>
+<% if @user_lists.present? %>
+    <% @user_lists.each do |list| %>
         <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <%=link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
     <% end %>
 <% end %>
+<% if @lists.present? %>
+    <% @lists.each do |list| %>
+        <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
+    <% end %>
+<% end %>
 
-<%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
+<% if is_logged_in? %>
+<%= form_for :list do |f| %>
+    <%=f.select :list_id, options_from_collection_for_select(List.all, :id, :title) %>
+    <%= f.submit %>
+<% end %>
+
+
+    <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
+<% end %>
