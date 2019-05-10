@@ -4,6 +4,7 @@
 <%= render partial: 'error_message', locals: {task: @task} %>
 
 <%= form_for @task do |f| %>
+    <%= f.hidden_field :task_id, :value => @task.id %>
     Change Content: <%= f.text_field :content %>
     Completed?<%= f.check_box :status %>
 <%= f.submit "Update Task" %>

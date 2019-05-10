@@ -15,12 +15,14 @@ class ListsController < ApplicationController
     def show
         @list = List.find(params[:id])
         @completed_tasks = @list.tasks.completed? 
-        @incomplete_tasks = @list.tasks.incomplete? 
+        @incomplete_tasks = @list.tasks.incomplete?
     end
     
     def create
+        binding.pry
         @list = List.find_or_create_by(list_params)
-        #is making a default task with content:nil. Trying to stop this with validations but is not working. Get Help
+        @list.user = current_user
+        @list.save
         current_user.lists << @list
         redirect_to user_list_path(current_user, @list)
     end

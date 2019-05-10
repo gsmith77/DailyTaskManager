@@ -1,7 +1,7 @@
 class List < ApplicationRecord
     has_many :tasks
-    has_many :users, through: :tasks
-    validates :title, presence: true, uniqueness:true
+    belongs_to :user
+    validates :title, presence: true, uniqueness:true, on: :new
 
     def tasks_attributes=(task_attributes)
         task_attributes.each do |i, task_attribute|
@@ -10,4 +10,7 @@ class List < ApplicationRecord
         end
     end
 
+    def empty_tasks
+        self.tasks = []
+    end
 end

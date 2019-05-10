@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
     def new
+        #rework it to be an email instead of a name and then make it a TEXT FIELD so the users can see all of the users
     end
     
     def create

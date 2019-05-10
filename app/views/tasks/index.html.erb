@@ -2,10 +2,10 @@
 <% if @incomplete_tasks.present? %>
     <h3>Incomplete Tasks:</h3><br>
     <% @incomplete_tasks.each do |task| %>
-        <%= render partial: 'content', locals: {task: task}%><br>
-        <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
+        <%= render partial: 'content', locals: {task: task}%>
+        <%= render partial: 'tasks/status', locals: {task: task} %>
         <%= form_for task do |f| %>
-            Completed?<%= f.check_box :status %>
+           Have You Completed The Task Above?<%= f.check_box :status %>
         <%= f.submit "Update Task" %>
         <% end %>
     <% end %>
