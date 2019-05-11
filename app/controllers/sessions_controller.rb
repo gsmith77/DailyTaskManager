@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
     def new
-        #rework it to be an email instead of a name and then make it a TEXT FIELD so the users can see all of the users
+    
     end
     
     def create
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
      
             redirect_to user_path(@user)
         else
-            @user = User.find_by(name: params[:user][:name])
+            @user = User.find_by(name: params[:name])
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         end

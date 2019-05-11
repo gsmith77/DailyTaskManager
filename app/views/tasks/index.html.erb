@@ -1,4 +1,7 @@
+<% if @list.title.present? %>
 <h1><%= @list.title.capitalize %></h1>
+<% end %>
+
 <% if @incomplete_tasks.present? %>
     <h3>Incomplete Tasks:</h3><br>
     <% @incomplete_tasks.each do |task| %>

@@ -23,5 +23,6 @@ Click on your Task to be able to mark it as complete.<br><br>
 
 <%= link_to "All Tasks", list_tasks_path(@list) %><br><br>
 <%= link_to "Completed Tasks", user_list_path(current_user, @list) %><br><br>
-<%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br>
+<%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br><br>
+<%= link_to "All Lists in Database", lists_path %>
 
