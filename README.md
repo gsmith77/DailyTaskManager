@@ -1,6 +1,6 @@
 # DailyTaskManager
 
-Project is designed to Create a new User, Sign in and Log in using Facebook. You will be able to create a list on your show page, delete all your lists, see all the lists in the datebase, see all of your personal lists and Log out. Any User can add a List to their lists by viewing All the lists in the Database. Only the User who Created the List will be able to modify the tasks inside of the List. 
+Project is designed to Create a new User, Sign in and Log in using Facebook. You will be able to create a list on your show page, delete all your lists, see all the lists in the database, see all of your personal lists and Log out. Any User can add a List to their lists by viewing All the lists in the Database. Only the User who Created the List will be able to modify the tasks inside of the List. 
 
 ## Getting Started
 
