@@ -24,12 +24,10 @@ before_action :authenticate_user
             @list = List.find(params[:list][:list_id])
             current_user.lists << @list
         end
-        if @list.nil?
-            @list = current_user.lists.find_or_create_by(list_params)
-            @list.user_id = current_user.id
-            @list.save
-            current_user.lists << @list
-        end
+        @list = current_user.lists.find_or_create_by(list_params)
+        @list.user_id = current_user.id
+        @list.save
+        current_user.lists << @list
         redirect_to user_list_path(current_user, @list)
     end
 
