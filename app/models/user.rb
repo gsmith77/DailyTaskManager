@@ -4,6 +4,7 @@ class User < ApplicationRecord
     has_many :created_lists, class_name: "List"
     has_many :lists, through: :tasks
     validates :name, uniqueness: true, presence: true
+    validates :email, uniqueness: true, presence: true
 
     def lists_attributes=(list_attributes)
         list_attributes.each do |i, list_attribute|

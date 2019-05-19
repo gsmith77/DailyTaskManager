@@ -9,6 +9,29 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <a class="btn btn-outline-primary" href="/" role="button">
+    Login
+    </a>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/signin" role="button">
+      Sign In
+      </a>
+    </div>
+      <% if is_logged_in? %>
+      <div style="padding-left: 10px;">
+        <a class="btn btn-outline-success" href="<%=user_path(current_user)%>" role="button">
+        My Profile
+        </a>
+        <a class="btn btn-outline-success" href="/logout" role="button">
+        Log Out
+        </a>
+      <% end %>
+    </div>
+  </form>
+</nav>
+
   <body>
     <%= yield %>
   </body>

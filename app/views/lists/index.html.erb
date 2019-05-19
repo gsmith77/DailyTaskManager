@@ -5,16 +5,17 @@
 <% end %>
 <% if @lists.present? %>
     <% @lists.each do |list| %>
-        <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
+        <%= list.title %>  <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
     <% end %>
 <% end %>
 
-<% if is_logged_in? %>
-<%= form_for :list do |f| %>
-    <%=f.select :list_id, options_from_collection_for_select(List.all, :id, :title) %>
-    <%= f.submit %>
+<% if is_logged_in? && @lists.present?%>
+See What other Users have been trying to accomplish, who knows this might give you some ideas as well.
+    <%= form_for :list do |f| %>
+        <%=f.select :list_id, options_from_collection_for_select(List.all, :id, :title) %>
+        <%= f.submit %>
+    <% end %>
 <% end %>
-
-
+<% if is_logged_in? %>
     <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
 <% end %>

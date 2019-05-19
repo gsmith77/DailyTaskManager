@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
      
             redirect_to user_path(@user)
         else
-            @user = User.find_by(name: params[:name])
+            @user = User.find_by(email: params[:email])
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         end

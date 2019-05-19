@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+before_action :authenticate_user
 
     def index
         if params[:user_id]
@@ -13,27 +14,28 @@ class ListsController < ApplicationController
     end
 
     def show
-        current_user && is_logged_in?
-        @list = current_user.lists.find(params[:id])
+        @list = List.find(params[:id])
         @completed_tasks = @list.tasks.completed? 
         @incomplete_tasks = @list.tasks.incomplete?
     end
     
     def create
-        current_user && is_logged_in?
-        @list = List.find(params[:list][:list_id])
+        if params[:list][:list_id].present?
+            @list = List.find(params[:list][:list_id])
+            current_user.lists << @list
+        end
         if @list.nil?
-            @list = List.find_or_create_by(list_params)
+            @list = current_user.lists.find_or_create_by(list_params)
             @list.user_id = current_user.id
             @list.save
+            current_user.lists << @list
         end
-        current_user.lists << @list
         redirect_to user_list_path(current_user, @list)
     end
 
     def destroy
         current_user.empty_lists
-        redirect_to lists_path
+        redirect_to user_path(current_user)
     end
 
 

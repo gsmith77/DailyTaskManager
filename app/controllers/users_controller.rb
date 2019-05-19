@@ -1,8 +1,8 @@
 require 'pry'
 class UsersController < ApplicationController
-
+    before_action :authenticate_user, only: [:show]
+    
     def show
-        is_logged_in?
         @user = User.find(params[:id])
     end
 
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:name, :password, :bio, lists_attributes: [:title])
+        params.require(:user).permit(:name, :email, :password, :bio, lists_attributes: [:title])
     end
+
 end

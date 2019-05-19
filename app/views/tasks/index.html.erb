@@ -5,6 +5,7 @@
 <% if @incomplete_tasks.present? %>
     <h3>Incomplete Tasks:</h3><br>
     <% @incomplete_tasks.each do |task| %>
+        <% task.delete if task.content == nil %>
         <%= render partial: 'content', locals: {task: task}%>
         <%= render partial: 'tasks/status', locals: {task: task} %>
         <%= form_for task do |f| %>

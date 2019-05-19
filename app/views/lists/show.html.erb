@@ -1,5 +1,5 @@
+<%= flash[:alert] %>
 <h1><%= @list.title %></h1><br><br>
-Click on your Task to be able to mark it as complete.<br><br>
 <% if @completed_tasks.present? %>
 <h3>Completed Tasks:</h3><br>
     <% @completed_tasks.each do |task| %>
@@ -15,7 +15,9 @@ Click on your Task to be able to mark it as complete.<br><br>
     <% end %>
 <% end %><br><br>
 
-<%= link_to "Create New Task", new_list_task_path(@list) %><br>
+<% if @list.user_id == current_user.id %>
+    <%= link_to "Create New Task", new_list_task_path(@list) %><br>
+<% end %>
 <%= render partial: 'error_message', locals: {task: @task} %>
 <br>
 <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %><br><br>
