@@ -32,8 +32,11 @@ before_action :authenticate_user
     end
 
     def destroy
-        current_user.empty_lists
-        redirect_to user_path(current_user)
+        if params[:id].present?
+            @list = List.find(params[:id])
+            @list.delete
+            redirect_to user_path(current_user)
+        end
     end
 
 

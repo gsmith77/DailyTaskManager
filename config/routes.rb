@@ -3,10 +3,8 @@ Rails.application.routes.draw do
 root 'users#new'
 
 resources :users do
-  resources :lists, only: [:index, :new, :show, :create]
-  delete 'lists/destroy', to: 'lists#destroy', as: 'destroy_lists'
+  resources :lists, only: [:index, :new, :show, :create, :destroy]
 end
-resources :lists
 post 'lists/create', to: 'lists#create', as:'create_list'
 resources :lists do
   resources :tasks, only: [:index, :new]

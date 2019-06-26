@@ -14,7 +14,6 @@
 <%= link_to "Create New List", new_user_list_path(current_user) %><br><br><br><br>
 <%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
-  <%= link_to "Delete All Lists", user_destroy_lists_path(current_user), method: :delete, :confirm => 'Are you sure?' %>
   <%= link_to "All Lists", user_lists_path(current_user) %>
 <% end %>
 <%= link_to "Log Out", logout_path %>

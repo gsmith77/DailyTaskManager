@@ -10,8 +10,4 @@ class List < ApplicationRecord
            self.tasks << task
         end
     end
-
-    def empty_tasks
-        self.tasks = []
-    end
 end

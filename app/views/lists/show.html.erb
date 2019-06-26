@@ -17,6 +17,7 @@
 
 <% if @list.user_id == current_user.id %>
     <%= link_to "Create New Task", new_list_task_path(@list) %><br>
+    <%= link_to "Delete List", list_path(@list), method: 'delete' %>
 <% end %>
 <%= render partial: 'error_message', locals: {task: @task} %>
 <br>
