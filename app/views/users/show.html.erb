@@ -11,8 +11,8 @@
 <% current_user.lists.each do |list| %>
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
 <% end %>
-<text id='list_created_at'></text>
-<text id='list_title'></text>
+<h1 id='list_created_at'></h1>
+<h2 id='list_title'></h2>
 </div>
 <%= link_to "Create New List", new_user_list_path(current_user) %><br><br><br><br>
 <%= link_to "All Lists in Database", lists_path %><br><br>
@@ -39,7 +39,7 @@
       #make new model object to be able to add that new object to
       #current_user lists that will then display correctly and with AJAX (asynchronosly)
       posting.done(function(data){
-        $(List.new(title: data['title']))
+        $(List.new(data['title']))
         $('#list_created_at').text(data['created_at'])
         $('#list_title').text(data['title'])
       })

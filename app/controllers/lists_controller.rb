@@ -7,6 +7,10 @@ before_action :authenticate_user
         else
             @lists = List.all
         end
+        respond_to do |f|
+            f.html 
+            f.json {render json: @user_lists || @lists}
+        end
     end
 
     def new
@@ -28,12 +32,11 @@ before_action :authenticate_user
         @list.user_id = current_user.id
         @list.save
         current_user.lists << @list
-        #render the show page in both html and json
         respond_to do |f|
             f.html 
-            f.json {render json: @list}
+            f.json {render json: @list, status: 201}
         end
-        redirect_to user_list_path(current_user, @list)
+        redirect_to user_path(current_user)
     end
 
     def destroy
