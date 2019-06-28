@@ -7,14 +7,42 @@
         <h2>Email: <%= @user.email %></h2>
 <% end %>
 <%= @user.bio %><br><br><br>
-        
+<div id='current_users_lists'>      
 <% current_user.lists.each do |list| %>
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
 <% end %>
+<text id='list_created_at'></text>
+<text id='list_title'></text>
+</div>
 <%= link_to "Create New List", new_user_list_path(current_user) %><br><br><br><br>
 <%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
   <%= link_to "All Lists", user_lists_path(current_user) %>
 <% end %>
-<%= link_to "Log Out", logout_path %>
+<%= link_to "Log Out", logout_path %><br>
 
+<h4>Create New List</h4>
+<%= form_for [List.new] do |f|%>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.submit 'Create List' %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $('form').submit(function(e){
+      e.preventDefault();
+      let values = $(this).serialize();
+      
+      let posting = $.post('/lists', values);
+
+      #make new model object to be able to add that new object to
+      #current_user lists that will then display correctly and with AJAX (asynchronosly)
+      posting.done(function(data){
+        $(List.new(title: data['title']))
+        $('#list_created_at').text(data['created_at'])
+        $('#list_title').text(data['title'])
+      })
+    });
+  });
+</script>

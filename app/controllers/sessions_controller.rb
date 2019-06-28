@@ -15,10 +15,13 @@ class SessionsController < ApplicationController
             session[:user_id] = @user.id
      
             redirect_to user_path(@user)
-        else
+        elsif
             @user = User.find_by(email: params[:email])
             session[:user_id] = @user.id
             redirect_to user_path(@user)
+        else 
+            @user = User.find_by(email: params[:email])
+            redirect_to '/signin' if @user == nil
         end
     end
 
