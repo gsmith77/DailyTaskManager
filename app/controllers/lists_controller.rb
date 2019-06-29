@@ -32,11 +32,9 @@ before_action :authenticate_user
         @list.user_id = current_user.id
         @list.save
         current_user.lists << @list
-        respond_to do |f|
-            f.html 
-            f.json {render json: @list, status: 201}
-        end
-        redirect_to user_path(current_user)
+
+        render json: @list, status:201
+
     end
 
     def destroy
