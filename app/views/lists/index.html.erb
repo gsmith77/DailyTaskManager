@@ -1,28 +1,37 @@
 <% if @user_lists.present? %>
+<h2>Your Lists</h2>
     <% @user_lists.each do |list| %>
         <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <%=link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
     <% end %>
+    <%= hidden_field_tag @user_lists.count %>
+    <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">Your List Count Is</button><br>
+
+    <h3 id='total_list_count'></h3><br>
 <% end %>
 <% if @lists.present? %>
+<h2>All Lists in Database</h2>
+
     <% @lists.each do |list| %>
         <%= list.title %>  <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
     <% end %>
+    <%= hidden_field_tag @lists.count %>
 <% end %>
-<%= hidden_field_tag @lists.last.id %>
 
 
 
-<% if is_logged_in? && @lists.present?%>
-See What other Users have been trying to accomplish, who knows this might give you some ideas as well.
+
+<% if is_logged_in? && @lists.present? %>
+See What other Users have been trying to accomplish, who knows this might give you some ideas as well. (You may not add Duplicates)
     <%= form_for :list do |f| %>
         <%=f.select :list_id, options_from_collection_for_select(List.all, :id, :title) %>
         <%= f.submit %>
-    <% end %>
+    <% end %><br>
+    <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">How Many Lists have been made so far on this App?</button><br>
+<br>
+<h3 id='total_list_count'>Total List Count Is</h3><br>
 <% end %>
+
+
 <% if is_logged_in? %>
     <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
 <% end %><br>
-
-<button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">How Many Lists have been made so far on this App?</button><br>
-
-<h3 id='total_list_count'>Total List Count Is</h3>

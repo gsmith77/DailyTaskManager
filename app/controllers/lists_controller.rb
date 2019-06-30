@@ -26,9 +26,12 @@ before_action :authenticate_user
     def create
         @list = List.find_or_create_by(list_params)
         @list.user_id = current_user.id
-        current_user.lists << @list
-        @list.save
-        render json: @list, status:201
+        if !current_user.lists.include?(@list) 
+            current_user.lists << @list && @list.save
+            render json: @list, status:201
+        else
+            redirect_to user_path(current_user)
+        end
     end
 
     def destroy

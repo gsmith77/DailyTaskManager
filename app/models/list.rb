@@ -2,7 +2,8 @@ class List < ApplicationRecord
     has_many :tasks
     has_many :users, through: :tasks
     belongs_to :user
-    validates :title, uniqueness:true, presence: true, on: :new
+    validates :title, presence: true, on: :new
+    validates :title, uniqueness:true
 
     def tasks_attributes=(task_attributes)
         task_attributes.each do |i, task_attribute|
