@@ -1,5 +1,6 @@
 <%= flash[:alert] %>
-<h1><%= @list.title %></h1><br><br>
+<h1 id="list_title"><%= @list.title %></h1><br><br>
+<%= hidden_field_tag @list.id %>
 <% if @completed_tasks.present? %>
 <h3>Completed Tasks:</h3><br>
     <% @completed_tasks.each do |task| %>
@@ -28,4 +29,6 @@
 <%= link_to "Completed Tasks", user_list_path(current_user, @list) %><br><br>
 <%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br><br>
 <%= link_to "All Lists in Database", lists_path %>
+<button onclick="document.getElementById('total_list_count').innerHTML = List.prototype.displayTitle(document.querySelector('input').id)">How Many Lists have been made so far on this App?</button>
 
+<p id='total_list_count'></p>

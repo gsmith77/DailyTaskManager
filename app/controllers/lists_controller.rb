@@ -24,17 +24,11 @@ before_action :authenticate_user
     end
     
     def create
-        if params[:list][:list_id].present?
-            @list = List.find(params[:list][:list_id])
-            current_user.lists << @list
-        end
-        @list = current_user.lists.find_or_create_by(list_params)
+        @list = List.find_or_create_by(list_params)
         @list.user_id = current_user.id
-        @list.save
         current_user.lists << @list
-
+        @list.save
         render json: @list, status:201
-
     end
 
     def destroy

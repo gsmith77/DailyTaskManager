@@ -8,6 +8,9 @@
         <%= list.title %>  <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
     <% end %>
 <% end %>
+<%= hidden_field_tag @lists.last.id %>
+
+
 
 <% if is_logged_in? && @lists.present?%>
 See What other Users have been trying to accomplish, who knows this might give you some ideas as well.
@@ -18,4 +21,8 @@ See What other Users have been trying to accomplish, who knows this might give y
 <% end %>
 <% if is_logged_in? %>
     <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
-<% end %>
+<% end %><br>
+
+<button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">How Many Lists have been made so far on this App?</button><br>
+
+<h3 id='total_list_count'>Total List Count Is</h3>

@@ -1,9 +1,10 @@
 class List {
-    constructor(title, user_id){
+    constructor(id, title, user_id){
+        this.id = id
         this.title = title
         this.user_id = user_id
     }
-    displayFormat() {
-        return `${this.title} + ' ' + ${this.created_at}`
+    totalListCount(listId) {
+        return `${listId}` 
     }
 }

@@ -16,7 +16,7 @@
 </div>
 <%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
-  <%= link_to "All Lists", user_lists_path(current_user) %>
+  <%= link_to "Your Lists" , user_lists_path(current_user) %>
 <% end %>
 <%= link_to "Log Out", logout_path %><br>
 

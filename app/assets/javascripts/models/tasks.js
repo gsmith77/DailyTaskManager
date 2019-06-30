@@ -5,4 +5,8 @@ class Task{
         this.user_id = user_id
         this.list_id = list_id
     }
+
+    orderByStatus(){
+        alert('boobs are in your face')
+    }
 }
