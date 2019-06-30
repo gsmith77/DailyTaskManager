@@ -1,3 +1,4 @@
+<h3><%=@list.title%></h3>
 <%= flash[:alert] %><br><br>
 <%= form_for @task, url: list_create_task_path(List.find(params[:list_id])) do |f| %>
     <%= f.label "Content" %>

@@ -3,7 +3,12 @@ class UsersController < ApplicationController
     before_action :authenticate_user, only: [:show]
     
     def show
+        #has_many json display User -> has_many -> lists
         @user = User.find(params[:id])
+        respond_to do |f|
+            f.html {user_path(current_user)}
+            f.json {render json: @user}
+        end
     end
 
     def new

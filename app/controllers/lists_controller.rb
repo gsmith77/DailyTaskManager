@@ -2,6 +2,7 @@ class ListsController < ApplicationController
 before_action :authenticate_user
 
     def index
+        #Index Page in Json
         if params[:user_id]
             @user_lists = User.find_by(id: params[:user_id]).lists
         else

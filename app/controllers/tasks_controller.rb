@@ -22,12 +22,18 @@ class TasksController < ApplicationController
     end
 
     def show
+        #One Resource to Show with JSON
         @task = Task.find(params[:id])
-        render json: @task, status:200
+        @list = List.find(@task.list_id)
+        respond_to do |f|
+            f.html {list_tasks_path(@list, @task)}
+            f.json {render json: @task}
+        end
     end
     
     def new
         @task = Task.new
+        @list = List.find(params[:list_id])
     end
 
     def create
