@@ -29,3 +29,21 @@
 <%= link_to "Completed Tasks", user_list_path(current_user, @list) %><br><br>
 <%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br><br>
 <%= link_to "All Lists in Database", lists_path %>
+<button id="single_list">Click Here Baby for This List Using Javascript</button>
+
+<script type="text/javascript" charset="utf-8">
+$(document).on("turbolinks:load", function(){
+    $('#single_list').click(function(){
+    $.ajax({method:"GET", url:`http://localhost:3000/lists/`, dataType: "json", success: function(data){
+        alert('it worked!')
+        let trueObject = data.find(function(object){
+            return object.id === <%= @list.id %>
+        })
+        //ajax request only grabs the first argument for the URL, '/lists/ for example'
+        window.location = "/lists/#{trueObject['id']}"
+        //document.getElementById('single_list').innerHTML = trueObject["title"]
+        }
+    })
+    });
+})
+</script>

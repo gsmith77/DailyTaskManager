@@ -35,3 +35,20 @@ See What other Users have been trying to accomplish, who knows this might give y
 <% if is_logged_in? %>
     <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
 <% end %><br>
+
+<button id='listttts'>You Like Javascript? Load all Lists in Database Right Here</button>
+
+#Load Index of Lists with AJAX!
+<script type="text/javascript" charset="utf-8">
+$(document).on("turbolinks:load", function(){
+    $('#listttts').click(function(){
+    $.ajax({method:"GET", url:"http://localhost:3000/lists", dataType: "json", success: function(objects){
+        alert('it worked!')
+        objects.forEach(function(data){
+            document.getElementById('listttts').innerHTML += data['title'] + ', '
+        })
+        }
+    })
+    });
+})
+</script>

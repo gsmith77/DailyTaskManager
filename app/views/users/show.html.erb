@@ -33,7 +33,6 @@ $(document).on('turbolinks:load', function(){
     event.preventDefault();
     
     let values = $(this).serialize();
-  
     let posting = $.post('/lists', values)
     posting.done(function(data){
       $('#list_title').text(data['title'])
