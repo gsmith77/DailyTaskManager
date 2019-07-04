@@ -8,6 +8,7 @@ before_action :authenticate_user
         else
             @lists = List.all
         end
+        
         respond_to do |f|
             f.html 
             f.json {render json: @user_lists || @lists}
@@ -22,6 +23,10 @@ before_action :authenticate_user
         @list = List.find(params[:id])
         @completed_tasks = @list.tasks.completed? 
         @incomplete_tasks = @list.tasks.incomplete?
+        respond_to do |f|
+            f.html 
+            f.json {render json: @list && @completed_tasks && @incomplete_tasks}
+        end
     end
     
     def create
