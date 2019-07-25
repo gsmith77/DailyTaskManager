@@ -7,12 +7,14 @@
         <h2>Email: <%= @user.email %></h2>
 <% end %>
 <%= @user.bio %><br><br><br>
-<div id='current_users_lists'>      
+<div id='current_users_lists'>
+<p id="lists">
 <% current_user.lists.each do |list| %>
         Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
+        
 <% end %>
-<text id='list_created_at'></text>
-<text id='list_title'></text>
+</p>
+
 </div>
 <%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
@@ -26,7 +28,7 @@
   <%= f.text_field :title %>
   <%= f.submit 'Create List' %>
 <% end %>
-
+<hidden_field_tag id=<%=current_user.id %>>
 <script type="text/javascript" charset="utf-8">
 $(document).on('turbolinks:load', function(){
   $('#new_list').submit(function(event) {
@@ -34,12 +36,14 @@ $(document).on('turbolinks:load', function(){
     
     let values = $(this).serialize();
     let posting = $.post('/lists', values)
-    posting.done(function(data){
-      $('#list_title').text(data['title'])
-      $('#list_created_at').text(data['created_at'])
+    posting.done(function(list){
+      List.prototype.newList(list)
     });
   });
 });
 </script>
 
-<button id='<%= current_user.id %>'onclick="List.prototype.indexOfLists(id)">Index of Lists in JSON</button>
+<button id='<%= current_user.id %>'  onclick="List.prototype.indexOfLists(id)">Index of Lists via Javascript</button>
+<button id='<%= current_user.id %>'  onclick="List.prototype.indexOfListsWithTasks(id)">Index of Lists with Tasks via Javascript</button>
+<ol id="organizedLists1" style="text-align:right; list-style-position:inside;"></ol>
+<ol id="organizedLists2" style="text-align:left; list-style-position:inside;"></ol>

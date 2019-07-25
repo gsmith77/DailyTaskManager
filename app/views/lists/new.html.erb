@@ -1,10 +1,7 @@
-
-<% if @list.errors.any? %>
-Please fix these errors to Create List:
-<% @list.errors.full_messages.each do |message| %>
-  <li><%= message %></li>
+<h1><%=@list.title%></h1>
+<%= flash[:alert] %><br><br>
+<%= form_for @task, url: list_create_task_path(List.find(params[:list_id])) do |f| %>
+    <%= f.label "Content" %>
+    <%= f.text_field :content %><br><br>
+    <%= f.submit "Create Task" %>
 <% end %>
-<% end %><br><br>
-
-<%= render partial: 'form', locals: {list: @list} %>
-
