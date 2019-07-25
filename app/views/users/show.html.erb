@@ -42,8 +42,7 @@ $(document).on('turbolinks:load', function(){
   });
 });
 </script>
-
-<button id='<%= current_user.id %>'  onclick="List.prototype.indexOfLists(id)">Index of Lists via Javascript</button>
-<button id='<%= current_user.id %>'  onclick="List.prototype.indexOfListsWithTasks(id)">Index of Lists with Tasks via Javascript</button>
+<button  onclick="List.prototype.indexOfLists(document.querySelector('hidden_field_tag').id)">Index of Lists via Javascript</button>
+<button  onclick="List.prototype.indexOfListsWithTasks(document.querySelector('hidden_field_tag').id)">Index of Lists with Tasks via Javascript</button>
 <ol id="organizedLists1" style="text-align:right; list-style-position:inside;"></ol>
 <ol id="organizedLists2" style="text-align:left; list-style-position:inside;"></ol>

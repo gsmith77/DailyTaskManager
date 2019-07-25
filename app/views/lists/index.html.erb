@@ -13,7 +13,6 @@
 
     <% @lists.each do |list| %>
         <%= list.title %>  <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
-        <button id="single_list" data-id="<%= list.id %>" data-parent="<%= current_user.id %>" onclick='List.prototype.redirectToShowPage(dataset.parent, dataset.id)'>Show Page in JSON</button>
 
     <% end %>
     <%= hidden_field_tag @lists.count %>
@@ -40,26 +39,24 @@ See What other Users have been trying to accomplish, who knows this might give y
 </div>
 
 <script type="text/javascript" charset="utf-8">
+
 $(document).on("turbolinks:load", function(){
     $('#listttts').click(function(){
+        getLists()
+    });
+})
+function getLists(){
     $.ajax({method:"GET", url:"http://localhost:3000/lists", dataType: "json", success: function(objects){
-        alert('it worked!')
+        document.querySelector('ul').innerHTML = ""
         objects.forEach(function(data){
             let li = document.querySelector('ul').appendChild(document.createElement('li'))
             li.innerHTML = data['title']
             })
         }
     })
-    });
-})
+}
 </script><br><br>
+
 <% if is_logged_in? %>
     <%= link_to "Back to #{current_user.name.capitalize}'s Page", user_path(current_user) %>
 <% end %><br>
-
-
-
-
-
-
-

@@ -4,12 +4,6 @@ class List {
         this.title = title
         this.user_id = user_id
     }
-    redirectToShowPage(userId, listId){
-        fetch(`http://localhost:3000/users/${userId}/lists/${listId}.json`)
-        .then(function (){
-            window.location = `http://localhost:3000/users/${userId}/lists/${listId}.json`
-        })
-    };
 
     newList(list){
         let date = new Date()
@@ -51,6 +45,8 @@ class List {
     indexOfLists(userId){
         fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
         lists.forEach((list) => {
+            document.getElementById('organizedLists1').innerHTML = ""
+
                 let li = document.getElementById('organizedLists1').appendChild(document.createElement('li'));
       
                 li.innerHTML = list['title']
@@ -61,6 +57,7 @@ class List {
     indexOfListsWithTasks(userId){
         fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
         lists.forEach((list) => {
+                document.getElementById('organizedLists2').innerHTML = ""
                 let li = document.getElementById('organizedLists2').appendChild(document.createElement('li'));
                 li.style = "color: Blue"
                 li.innerHTML = list['title'] + "  TASKS: "
