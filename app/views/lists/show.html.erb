@@ -3,25 +3,14 @@
 
 <hidden_field_tag id= <%= @list.id%>>
 <hidden_field_tag id= <%= current_user.id%>>
-<% if @completed_tasks.present? %>
-<h3>Completed Tasks:</h3><br>
-    <% @completed_tasks.each do |task| %>
-        <%= render partial: 'content', locals: {task: task}%>
-        <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
-    <% end %>
-<% end %>
-<ul id="newTask">
 
-<% if @incomplete_tasks %>
-<h3>Incomplete Tasks:</h3><br>
-    <% @incomplete_tasks.each do |task| %>
-        <li>
-            <%= render partial: 'content', locals: {task: task}%><br>
-            <%= render partial: 'tasks/status', locals: {task: task} %>
-        </li><br><br>
-    <% end %>
-<% end %>
-</ul><br><br>
+<ul id="newTask">
+<h3>All Tasks</h3>
+
+</ul><br>
+
+<ul id="asyncIndexOfTasks"></ul>
+
 
 <% if @list.user_id == current_user.id %>
     <%= link_to "Create New Task", new_list_task_path(@list) %><br>

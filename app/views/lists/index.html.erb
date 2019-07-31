@@ -1,8 +1,7 @@
 <% if @user_lists.present? %>
 <h2>Your Lists</h2>
     <div id="lists">
-
-        <%= hidden_field_tag @user_lists.count %>
+        <%= hidden_field_tag current_user.lists.count %>
         <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">Your List Count Is</button><br>
 
         <h3 id='total_list_count'></h3><br>

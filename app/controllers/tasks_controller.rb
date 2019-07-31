@@ -43,9 +43,8 @@ class TasksController < ApplicationController
             @list = List.find(params[:list_id]) if params[:list_id]
             if @list.user_id == current_user.id
                 @task = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: current_user.id})
-                respond_to do |f|
-                    f.json {render json: @task}
-                end
+                render json: @task
+
             else
                 redirect_to user_path(current_user)
             end
