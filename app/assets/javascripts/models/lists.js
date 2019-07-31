@@ -1,66 +1,85 @@
 class List {
+    
     constructor(id, title, user_id){
         this.id = id
         this.title = title
         this.user_id = user_id
     }
 
-    newList(list){
-        let date = new Date()
-        const aTag = document.createElement('button')
-        const text = document.createElement('text')
-        text.innerHTML = 'Created on: ' + date
-        aTag.id = "synchronousList"
-        aTag.name = list.id
-        aTag.onclick = List.prototype.showList
-        aTag.innerHTML = list["title"]
-        document.getElementById('current_users_lists').append(text)
-        document.getElementById('current_users_lists').append(aTag)
+    addListToUserShowPage(list){
+        let userId = document.querySelector('hidden_field_tag').id
+        fetch(`http://localhost:3000/users/${userId}/lists/${list.id}.json`).then(resp => resp.json())
+        .then(list => {
+            const buttonTag = document.createElement('button')
+            const li = document.createElement('li')
+            li.style = {'list-style': 'none'}
+            li.innerHTML = 'Created on: ' + list.time
+            buttonTag.id = "synchronousList"
+            buttonTag.name = list.id
+            buttonTag.onclick = (event => List.prototype.showList(list))
+            buttonTag.innerHTML = " " + list["title"]
+            document.getElementById('indexOfLists').append(li)
+            li.append(buttonTag)
+        })
+    }   
+
+    displayButtons = () => {
+        const buttons = document.querySelectorAll('button') 
+        buttons.forEach(button => {
+            button.onclick = (function(){
+                if (button.style.display === "none") {
+                    button.style.display = "block";
+                  } else {
+                    button.style.display = "none";
+                }
+            }) 
+        })
     }
 
 
-    showList(){        
-        let listId = document.getElementById("synchronousList").name
-        const x = document.getElementById("synchronousList")
-        if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-        }
+    showList(list){      
+        List.prototype.displayButtons
+        document.getElementById('showList').innerHTML = ""
         let userId = document.querySelector('hidden_field_tag').id
-        fetch(`http://localhost:3000/users/${userId}/lists/${listId}.json`).then(resp => resp.json())
-        .then((list) => {
-            let aTag = document.createElement('a')
-            aTag.href = `http://localhost:3000/users/${userId}/lists/${list[0]['list']['id']}`
-            aTag.innerHTML = list[0]['list']['title']
-            document.getElementById('current_users_lists').append(aTag)
-            const textTag = document.createElement('text')
-            list.forEach((task) => {
-                textTag.innerHTML += " Task (Content: " + task['content'] + " Status: " + task['status'] + ')'
-            });
-            document.getElementById('current_users_lists').append(textTag)
+        let aTag = document.createElement('a')
+        aTag.href = `http://localhost:3000/users/${userId}/lists/${list.id}`
+        aTag.innerHTML = " " + list['title']
+        document.getElementById('showList').append(aTag)
+        const textTag = document.createElement('text')
+        list.tasks.forEach((task) => {
+            textTag.innerHTML += " Task (Content: " + task['content'] + " Status: " + task['status'] + ')'
         });
+        document.getElementById('showList').append(textTag)
+        ;
     };
 
     indexOfLists(userId){
-        fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
-        lists.forEach((list) => {
-            document.getElementById('organizedLists1').innerHTML = ""
-
-                let li = document.getElementById('organizedLists1').appendChild(document.createElement('li'));
-      
-                li.innerHTML = list['title']
+        if(document.getElementById('indexOfLists').innerHTML === ""){
+            let userId = document.querySelector('hidden_field_tag').id
+            fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
+            lists.forEach((list) => {
+                let li = document.getElementById('indexOfLists').appendChild(document.createElement('li'));
+                li.innerHTML = 'Created on: ' + list.time + " "
+                let buttonTag = document.createElement('button')
+                li.append(buttonTag)
+                buttonTag.id = list.id
+                buttonTag.onclick = (event => List.prototype.showList(list))
+                buttonTag.innerHTML = list['title']
+                })
             })
-        })
+        }
     };
 
     indexOfListsWithTasks(userId){
         fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
         lists.forEach((list) => {
-                document.getElementById('organizedLists2').innerHTML = ""
-                let li = document.getElementById('organizedLists2').appendChild(document.createElement('li'));
+                let aTag = document.createElement('a')
+                aTag.href = `http://localhost:3000/users/${userId}/lists/${list.id}`
+                aTag.innerHTML = " " + list['title']
+                let li = document.getElementById('showList').appendChild(document.createElement('li'));
+                li.append(aTag)
                 li.style = "color: Blue"
-                li.innerHTML = list['title'] + "  TASKS: "
+                li.innerHTML += "  TASKS: "
                 list.tasks.forEach((task) => {
                     li.innerHTML += " " + task['content'] + " " + "Completed: " + task['status']
                });
@@ -71,8 +90,7 @@ class List {
     totalListCount(listId) {
         return `${listId}` 
     };
-
-
+    
 };
 
-
+window.addEventListener("load", List.prototype.indexOfLists)

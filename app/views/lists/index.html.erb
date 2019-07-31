@@ -1,12 +1,12 @@
 <% if @user_lists.present? %>
 <h2>Your Lists</h2>
-    <% @user_lists.each do |list| %>
-        <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <%=link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
-    <% end %>
-    <%= hidden_field_tag @user_lists.count %>
-    <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">Your List Count Is</button><br>
+    <div id="lists">
 
-    <h3 id='total_list_count'></h3><br>
+        <%= hidden_field_tag @user_lists.count %>
+        <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">Your List Count Is</button><br>
+
+        <h3 id='total_list_count'></h3><br>
+    </div>
 <% end %>
 <% if @lists.present? %>
 <h2>All Lists in Database</h2>
@@ -32,29 +32,15 @@ See What other Users have been trying to accomplish, who knows this might give y
 <h3 id='total_list_count'>Total List Count Is</h3><br>
 <% end %>
 
-<button id='listttts'>Load all Lists in Database Right Here with AJAX:</button>
-<div>
-<ul id="all_dem_lists">
-</ul>
-</div>
+
 
 <script type="text/javascript" charset="utf-8">
 
-$(document).on("turbolinks:load", function(){
-    $('#listttts').click(function(){
-        getLists()
-    });
+
+
+$(document).on('turbolinks:load', function(){
+  List.prototype.indexOfLists(<%= current_user.id %>)
 })
-function getLists(){
-    $.ajax({method:"GET", url:"http://localhost:3000/lists", dataType: "json", success: function(objects){
-        document.querySelector('ul').innerHTML = ""
-        objects.forEach(function(data){
-            let li = document.querySelector('ul').appendChild(document.createElement('li'))
-            li.innerHTML = data['title']
-            })
-        }
-    })
-}
 </script><br><br>
 
 <% if is_logged_in? %>

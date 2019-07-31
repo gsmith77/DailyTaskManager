@@ -38,10 +38,14 @@ class TasksController < ApplicationController
 
     def create
         if task_params[:content].present?
-            @list = List.find(params[:list_id])
+            #assign task with list id and current_user id try a f.hidden_field
+            @list = List.find(task_params[:list_id]) if task_params[:list_id]
+            @list = List.find(params[:list_id]) if params[:list_id]
             if @list.user_id == current_user.id
                 @task = @list.tasks.create({content: task_params[:content], list_id: @list.id,  user_id: current_user.id})
-                redirect_to list_tasks_path(@list)
+                respond_to do |f|
+                    f.json {render json: @task}
+                end
             else
                 redirect_to user_path(current_user)
             end

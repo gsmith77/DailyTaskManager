@@ -1,3 +1,19 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+ul {list-style: none}
+li::before {content: "•"; color: rgb(0, 255, 51);
+    display: inline-block; width: 1em;
+    margin-left: -1em}
+
+    .column {
+        float: left;
+        width: 50%;
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }

@@ -1,6 +1,8 @@
 <%= flash[:alert] %>
 <h1 id="list_title"><%= @list.title %></h1><br><br>
-<%= hidden_field_tag @list.id %>
+
+<hidden_field_tag id= <%= @list.id%>>
+<hidden_field_tag id= <%= current_user.id%>>
 <% if @completed_tasks.present? %>
 <h3>Completed Tasks:</h3><br>
     <% @completed_tasks.each do |task| %>
@@ -8,13 +10,18 @@
         <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
     <% end %>
 <% end %>
-<% if @completed_tasks.nil? %>
+<ul id="newTask">
+
+<% if @incomplete_tasks %>
 <h3>Incomplete Tasks:</h3><br>
     <% @incomplete_tasks.each do |task| %>
-        <%= render partial: 'content', locals: {task: task}%><br>
-        <%= render partial: 'tasks/status', locals: {task: task} %><br><br>
+        <li>
+            <%= render partial: 'content', locals: {task: task}%><br>
+            <%= render partial: 'tasks/status', locals: {task: task} %>
+        </li><br><br>
     <% end %>
-<% end %><br><br>
+<% end %>
+</ul><br><br>
 
 <% if @list.user_id == current_user.id %>
     <%= link_to "Create New Task", new_list_task_path(@list) %><br>
@@ -29,4 +36,29 @@
 <%= link_to "Completed Tasks", user_list_path(current_user, @list) %><br><br>
 <%= link_to "Incomplete Tasks", list_tasks_path(@list) %><br><br>
 <%= link_to "All Lists in Database", lists_path %><br><br>
-<button id="single_list" data-id="<%= @list.id %>" data-parent="<%= current_user.id %>" onclick='List.prototype.redirectToShowPage(dataset.parent, dataset.id)'>Click Here To see list in JSON</button>
+
+<%= form_for [Task.new] do |f| %>
+    <h4>Create New Task</h4>
+    <%= f.hidden_field :list_id, :value => @list.id %>
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+    <%= f.submit "Create New Task" %>
+<% end %>
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).on('turbolinks:load', function(){
+        $(document.querySelectorAll('form')[1]).submit(function(event){
+            event.preventDefault()
+            let listId = $(document.querySelector('input').id)
+
+            let values = $(this).serialize()
+            
+            let posting = $.post('/tasks', values)
+
+            posting.done(function(data){
+                Task.prototype.addTaskToPage(data)
+            })
+        })
+    });
+</script>

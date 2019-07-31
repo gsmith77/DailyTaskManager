@@ -2,7 +2,7 @@ class ListsController < ApplicationController
     before_action :authenticate_user
     
         def index
-            if params[:user_id]
+           if params[:user_id]
                 @user_lists = User.find_by(id: params[:user_id]).lists
             else
                 @lists = List.all
@@ -10,7 +10,7 @@ class ListsController < ApplicationController
             
             respond_to do |f|
                 f.html 
-                f.json {render json: @user_lists || @lists}
+                f.json {render json: @user_lists}
             end
         end
     
@@ -24,7 +24,7 @@ class ListsController < ApplicationController
             @incomplete_tasks = @list.tasks.incomplete?
             respond_to do |f|
                 f.html 
-                f.json {render json: @list && @completed_tasks && @incomplete_tasks}
+                f.json {render json: @list}
             end
         end
         
@@ -34,7 +34,7 @@ class ListsController < ApplicationController
             @list.user_id = current_user.id
             if !current_user.lists.include?(@list) 
                 current_user.lists.push(@list) && @list.save
-                render json: @list, status:201
+                render json: @list
             else
                 redirect_to user_path(current_user)
             end

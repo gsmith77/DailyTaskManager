@@ -7,42 +7,51 @@
         <h2>Email: <%= @user.email %></h2>
 <% end %>
 <%= @user.bio %><br><br><br>
-<div id='current_users_lists'>
-<p id="lists">
-<% current_user.lists.each do |list| %>
-        Created On: <%= list.created_at.strftime("%A,  %b %d,  %Y") %>  <%= link_to "#{list.title}", user_list_path(current_user, list)%><br><br>
-        
-<% end %>
-</p>
+#Each List is being rendered the exact amount of Tasks they contain ask how you can fix that
+#The fetch is grabbing multiple Lists How to fix that
 
-</div>
+<div class="column" id='current_users_lists'>
+
+<ul id="indexOfLists"></ul>
+
+
 <%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
   <%= link_to "Your Lists" , user_lists_path(current_user) %>
 <% end %>
 <%= link_to "Log Out", logout_path %><br>
 
+
 <h4>Create New List</h4>
 <%= form_for [List.new] do |f|%>
   <%= f.label :title %>
   <%= f.text_field :title %>
   <%= f.submit 'Create List' %>
-<% end %>
-<hidden_field_tag id=<%=current_user.id %>>
+<% end %><br>
+<button onclick="List.prototype.indexOfListsWithTasks(<%=current_user.id%>)"> See All Lists with Their Tasks</button>
+
+</div>
+
+<div id="showList" class="column">
+
+</div>
 <script type="text/javascript" charset="utf-8">
 $(document).on('turbolinks:load', function(){
   $('#new_list').submit(function(event) {
     event.preventDefault();
-    
+
     let values = $(this).serialize();
     let posting = $.post('/lists', values)
     posting.done(function(list){
-      List.prototype.newList(list)
+ 
+      List.prototype.addListToUserShowPage(list)
     });
   });
 });
+
+
+
 </script>
-<button  onclick="List.prototype.indexOfLists(document.querySelector('hidden_field_tag').id)">Index of Lists via Javascript</button>
-<button  onclick="List.prototype.indexOfListsWithTasks(document.querySelector('hidden_field_tag').id)">Index of Lists with Tasks via Javascript</button>
-<ol id="organizedLists1" style="text-align:right; list-style-position:inside;"></ol>
-<ol id="organizedLists2" style="text-align:left; list-style-position:inside;"></ol>
+
+<hidden_field_tag id=<%=current_user.id %>>
+
