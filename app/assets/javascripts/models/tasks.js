@@ -19,11 +19,13 @@ class Task{
     };
 
     indexOfTasks(){
-        document.getElementById('asyncIndexOfTasks').innerHTML = ""
+        if(document.getElementById('asyncIndexOfTasks').innerHTML !== ""){
+            document.getElementById('asyncIndexOfTasks').innerHTML = ""
+        }
         fetch(`http://localhost:3000/lists/${document.querySelector('hidden_field_tag').id}/tasks.json`)
         .then(resp => resp.json())
-        .then(list => {
-            list.tasks.forEach((task) => {
+        .then(tasks => {
+            tasks.forEach((task) => {
                 let li = document.createElement('li')
                 let aTag = document.createElement('a')
                 aTag.href = `http://localhost:3000/tasks/${task.id}`

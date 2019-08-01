@@ -42,7 +42,6 @@
             let listId = $(document.querySelector('input').id)
 
             let values = $(this).serialize()
-            
             let posting = $.post('/tasks', values)
 
             posting.done(function(data){
@@ -50,4 +49,5 @@
             })
         })
     });
+
 </script>

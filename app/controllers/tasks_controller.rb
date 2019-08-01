@@ -6,14 +6,12 @@ class TasksController < ApplicationController
             @list = List.find(params[:list_id])
             @incomplete_tasks = @list.tasks.incomplete? 
             @tasks = @list.tasks
-            render json: @list
-
         else
             @tasks = Task.all
-            respond_to do |f|
-                f.html 
-                f.json {render json: @tasks}
-            end
+        end
+        respond_to do |f|
+            f.html 
+            f.json {render json: @tasks}
         end
     end
 

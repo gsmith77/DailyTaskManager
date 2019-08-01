@@ -4,14 +4,18 @@ class ListsController < ApplicationController
         def index
            if params[:user_id]
                 @user_lists = User.find_by(id: params[:user_id]).lists.uniq
-
+                respond_to do |f|
+                    f.html 
+                    f.json {render json: @user_lists}
+                end
             else
                 @lists = List.all
+                respond_to do |f|
+                    f.html 
+                    f.json {render json: @lists}
+                end
             end
-            respond_to do |f|
-                f.html 
-                f.json {render json: @user_lists}
-            end
+
         end
     
         def new
