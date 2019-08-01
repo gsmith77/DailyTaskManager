@@ -3,7 +3,9 @@
     <div id="lists">
         <%= hidden_field_tag current_user.lists.uniq.count %>
         <button onclick="document.getElementById('total_list_count').innerHTML =  List.prototype.totalListCount(document.querySelector('input[type=hidden]').id)">Your List Count Is</button><br>
-
+        <% @user_lists.each do |list| %>
+            <%= list.title %>  <%= list.created_at.strftime("%A,  %b %d,  %Y") %> <br><br>
+        <% end %>
         <h3 id='total_list_count'></h3><br>
     </div>
 <% end %>

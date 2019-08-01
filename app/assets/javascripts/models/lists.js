@@ -78,7 +78,6 @@ class List {
                 aTag.innerHTML = " " + list['title']
                 let li = document.getElementById('showList').appendChild(document.createElement('li'));
                 li.append(aTag)
-                li.style = "color: Blue"
                 li.innerHTML += "  TASKS: "
                 list.tasks.forEach((task) => {
                     li.innerHTML += " " + task['content'] + " " + "Completed: " + task['status']

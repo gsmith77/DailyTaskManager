@@ -16,7 +16,6 @@ class TasksController < ApplicationController
     end
 
     def show
-        #One Resource to Show with JSON
         @task = Task.find(params[:id])
         @list = List.find(@task.list_id)
         respond_to do |f|
