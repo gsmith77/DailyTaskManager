@@ -56,15 +56,15 @@ class List {
     indexOfLists(userId){
         if(document.getElementById('indexOfLists').innerHTML === ""){
             let userId = document.querySelector('hidden_field_tag').id
-            fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
-            lists.forEach((list) => {
+            fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {
+                lists.forEach((list) => {
                 let li = document.getElementById('indexOfLists').appendChild(document.createElement('li'));
                 li.innerHTML = 'Created on: ' + list.time + " "
                 let buttonTag = document.createElement('button')
                 li.append(buttonTag)
                 buttonTag.id = list.id
                 buttonTag.onclick = (event => List.prototype.showList(list))
-                buttonTag.innerHTML = list['title']
+                buttonTag.innerHTML = list['title'] 
                 })
             })
         }

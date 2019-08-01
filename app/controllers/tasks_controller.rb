@@ -6,18 +6,14 @@ class TasksController < ApplicationController
             @list = List.find(params[:list_id])
             @incomplete_tasks = @list.tasks.incomplete? 
             @tasks = @list.tasks
-            respond_to do |f|
-                f.html 
-                f.json {render json: @list && @incomplete_tasks && @tasks}
-            end
-            list_tasks_path(@list)
+            render json: @list
+
         else
             @tasks = Task.all
             respond_to do |f|
                 f.html 
                 f.json {render json: @tasks}
             end
-            tasks_path
         end
     end
 
@@ -38,7 +34,6 @@ class TasksController < ApplicationController
 
     def create
         if task_params[:content].present?
-            #assign task with list id and current_user id try a f.hidden_field
             @list = List.find(task_params[:list_id]) if task_params[:list_id]
             @list = List.find(params[:list_id]) if params[:list_id]
             if @list.user_id == current_user.id

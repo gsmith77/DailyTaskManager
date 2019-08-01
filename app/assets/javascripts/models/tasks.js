@@ -8,7 +8,6 @@ class Task{
 
     addTaskToPage(data){
         let userId = document.querySelectorAll('hidden_field_tag')[1].id
-        let listId = data['list']['id']
         let taskId = data['id']
         var li = document.createElement('li')
         let aTag = document.createElement('a')
@@ -23,8 +22,8 @@ class Task{
         document.getElementById('asyncIndexOfTasks').innerHTML = ""
         fetch(`http://localhost:3000/lists/${document.querySelector('hidden_field_tag').id}/tasks.json`)
         .then(resp => resp.json())
-        .then(tasks => {
-            tasks.forEach((task) => {
+        .then(list => {
+            list.tasks.forEach((task) => {
                 let li = document.createElement('li')
                 let aTag = document.createElement('a')
                 aTag.href = `http://localhost:3000/tasks/${task.id}`
@@ -37,4 +36,4 @@ class Task{
     }
 };
 
-window.addEventListener("load", Task.prototype.indexOfTasks, Task.prototype.indexOfTasks)
+window.addEventListener("load", Task.prototype.indexOfTasks)
