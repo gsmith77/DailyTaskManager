@@ -34,14 +34,11 @@ class ListsController < ApplicationController
         
         def create
             #EMPTY TASK IS CREATED HERE! FIX IT!
-            @list = List.find_or_create_by(list_params)
+            @list = current_user.lists.find_or_create_by(list_params)
             @list.user_id = current_user.id
-            if !current_user.lists.include?(@list) 
-                current_user.lists.push(@list) && @list.save
-                render json: @list
-            else
-                redirect_to user_path(current_user)
-            end
+            @list.save
+            #adding to current users lists makes an empty task
+            render json: @list
         end
     
         def destroy

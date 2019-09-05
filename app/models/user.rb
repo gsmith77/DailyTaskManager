@@ -10,8 +10,4 @@ class User < ApplicationRecord
            list = self.lists.build(list_attribute)
         end
     end
-
-    def empty_lists
-        self.lists = []
-    end
 end

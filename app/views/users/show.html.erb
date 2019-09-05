@@ -13,11 +13,10 @@
 <ul id="indexOfLists"></ul>
 
 
-<%= link_to "All Lists in Database", lists_path %><br><br>
 <% if @user.lists.present? %>
   <%= link_to "Your Lists" , user_lists_path(current_user) %>
 <% end %>
-<%= link_to "Log Out", logout_path %><br>
+
 
 
 <h4>Create New List</h4>
@@ -27,6 +26,9 @@
   <%= f.submit 'Create List' %>
 <% end %><br>
 <button onclick="List.prototype.indexOfListsWithTasks(<%=current_user.id%>)"> See All Lists with Their Tasks</button>
+<br>
+<br>
+<%= link_to "Log Out", logout_path %><br>
 
 </div>
 

@@ -21,7 +21,24 @@ class List {
             document.getElementById('indexOfLists').append(li)
             li.append(buttonTag)
         })
-    }   
+    }
+    
+    showList(list){      
+        List.prototype.displayButtons
+        document.getElementById('showList').innerHTML = ""
+        let userId = document.querySelector('hidden_field_tag').id
+        let aTag = document.createElement('a')
+        aTag.href = `http://localhost:3000/users/${userId}/lists/${list.id}`
+        aTag.innerHTML = " " + list['title']
+        document.getElementById('showList').append(aTag)
+        const textTag = document.createElement('text')
+        list.tasks.forEach((task) => {
+            // debugger
+            textTag.innerHTML += "<p> Task (Content: " + task['content'] + " Status: " + task['status'] + ')</p>' 
+        });
+        document.getElementById('showList').append(textTag)
+        ;
+    };
 
     displayButtons = () => {
         const buttons = document.querySelectorAll('button') 
@@ -35,23 +52,6 @@ class List {
             }) 
         })
     }
-
-
-    showList(list){      
-        List.prototype.displayButtons
-        document.getElementById('showList').innerHTML = ""
-        let userId = document.querySelector('hidden_field_tag').id
-        let aTag = document.createElement('a')
-        aTag.href = `http://localhost:3000/users/${userId}/lists/${list.id}`
-        aTag.innerHTML = " " + list['title']
-        document.getElementById('showList').append(aTag)
-        const textTag = document.createElement('text')
-        list.tasks.forEach((task) => {
-            textTag.innerHTML += " Task (Content: " + task['content'] + " Status: " + task['status'] + ')'
-        });
-        document.getElementById('showList').append(textTag)
-        ;
-    };
 
     indexOfLists(userId){
         if(document.getElementById('indexOfLists').innerHTML === ""){
@@ -71,6 +71,7 @@ class List {
     };
 
     indexOfListsWithTasks(userId){
+        document.getElementById('showList').innerHTML = ""
         fetch(`http://localhost:3000/users/${userId}/lists.json`).then(resp => resp.json()).then((lists) => {   
         lists.forEach((list) => {
                 let aTag = document.createElement('a')
@@ -91,5 +92,12 @@ class List {
     };
     
 };
+
+//RAILS will set the DISBALED attribute of the form button to TRUE
+//you can target this button with javascript and turn the attribute
+//back to FALSE to allow multiple uses of the asynchronous LIST creator
+
+//getting index of list with tasks to look as the same of the list show page when clicked
+//have tasks on seperate lines 
 
 window.addEventListener("load", List.prototype.indexOfLists)
